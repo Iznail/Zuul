@@ -14,7 +14,12 @@ class CommandLibrary
 		validCommands.Add("go");
 		validCommands.Add("quit");
 		validCommands.Add("look");
-		
+		validCommands.Add("status");
+		validCommands.Add("damage");
+		validCommands.Add("heal");
+
+
+
 	}
 
 	// Check whether a given string is a valid command word.
@@ -26,7 +31,8 @@ class CommandLibrary
 
 	// returns a list of valid command words as a comma separated string.
 	public string GetCommandsString()
-	{
+	{ 
 		return String.Join(", ", validCommands);
 	}
 }
+

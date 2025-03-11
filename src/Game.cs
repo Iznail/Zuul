@@ -9,9 +9,8 @@ private Player player;
 public Game ()
 { 
 	parser = new Parser();
-	player = new Player();
+    player = new Player ();
 	CreateRooms();
-
 }
 private void CreateRooms()
 
@@ -73,6 +72,18 @@ private void CreateRooms()
 		Console.WriteLine("Thank you for playing.");
 		Console.WriteLine("Press [Enter] to continue.");
 		Console.ReadLine();
+		while (!finished)
+{
+    if (!player.IsAlive())
+    {
+        Console.WriteLine("Game Over! You have died.");
+        break;
+    }
+
+    Command command = parser.GetCommand();
+    finished = ProcessCommand(command);
+}
+
 	}
 
 	// Print out the opening message for the player.
@@ -113,9 +124,23 @@ private void CreateRooms()
 		    case "look":
 			look();
 			break;
+		    case "status":  
+            player.Status();
+           break;
+		  case "damage":
+    player.Damage(10); // Speler neemt 10 schade
+    if (!player.IsAlive())
+    {
+        Console.WriteLine("Game Over! You have died.");
+        wantToQuit = true;
+    }  
+    break;
+	case "heal":
+    player.RestoreHealth(); // Gezondheid herstellen
+    break;
 
-			
-		}
+		} 
+		
 
 		return wantToQuit;
 	}
@@ -165,3 +190,4 @@ private void CreateRooms()
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 }
+
